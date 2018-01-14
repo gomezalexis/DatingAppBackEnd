@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
+    //To protect all routes
+    [Authorize]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
         private readonly DataContext _context;
+        //shortcut for Constructo = ctor
+        //shortcut for Variable = prop
         public ValuesController(DataContext context)
         {
             _context = context;
@@ -22,7 +27,7 @@ namespace DatingApp.API.Controllers
         public async Task<IActionResult> GetValues()
         {
             var values = await _context.Values.ToListAsync();
-
+            // throw new Exception("Aqui papito");
             return Ok(values);
         }
 
